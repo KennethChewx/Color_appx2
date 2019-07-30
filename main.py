@@ -140,10 +140,10 @@ def Discriminator():
     return tf.keras.Model(inputs=[inp, tar], outputs=last)
 
 # Adam optimizers
-#generator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
-#discriminator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
-generator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
-discriminator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
+generator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
+discriminator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
+#generator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
+#discriminator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
 
 #Create instance of generator and discriminator    
 generator = Generator()
@@ -157,7 +157,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 #Restore weights
-checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)).assert_consumed().run_restore_ops()
+checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)).run_restore_ops()
 
 def allowed_file(filename):
     return '.' in filename and \
