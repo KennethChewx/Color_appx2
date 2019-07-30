@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<!--
+	Big Picture by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>COLORS outside the LINES</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}" >
+		<noscript><link rel="stylesheet" href={{ url_for('static', filename='css/noscript.css')}} /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<h1>Coloring!</h1>
+				<nav>
+					<ul>
+						<li><a href="#intro">Intro</a></li>
+						<li><a href="#one">Try out</a></li>
+						<li><a href="#work">Results</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Intro -->
+			<section id="intro" class="main style1 dark fullscreen">
+
+				<div class="content">
+					<header>
+						<h2>Colourize</h2>
+					</header>
+					<p> Fill the world with all dimensions of colors</p>
+					<footer>
+						<a href="#one" class="button style2 down">More</a>
+					</footer>
+				</div>
+			</section>
+
+		<!-- One -->
+			<section id="one" class="main style2 right dark fullscreen">
+				<div class="content box style2">
+					<header>
+						<h2>Try Out</h2>
+					</header>
+					<p> The Deep Learning model was trained on pictures of people and would perform best
+						with gray pictures of people.</p>
+
+					<form method="post" enctype="multipart/form-data">
+         					   Choose the photo: <input type="file" name="file"/><BR>
+              					  <input type="submit" value="Colorise!"/>
+   					</form>
+
+				</div>
+				<a href="#work" class="button style2 down anchored">Next</a>
+
+			</section>
+
+		<!-- Work -->
+			<section id="work" class="main style3 primary">
+				<div class="content">
+					<header>
+						<h2>Results</h2>
+						<p>Here are some other pictures that this CNN model has been trained on, and their outputs as
+						compared to the ground truth pictures. </p>
+					</header>
+
+					<!-- Gallery  -->
+						<div class="gallery">
+							<article class="from-left">
+								<a href={{ url_for('static', filename='images/fulls/01.jpg')}} class="image fit"><img src={{ url_for('static', filename='images/thumbs/01.jpg')}} title="Man on the street" alt="" /></a>
+							</article>
+							<article class="from-right">
+								<a href={{ url_for('static', filename='images/fulls/02.jpg')}} class="image fit"><img src={{ url_for('static', filename='images/thumbs/02.jpg')}} title="Globe on a leaf" alt="" /></a>
+							</article>
+							<article class="from-left">
+								<a href={{ url_for('static', filename='images/fulls/03.jpg')}} class="image fit"><img src={{ url_for('static', filename='images/thumbs/03.jpg')}} title="Flower" alt="" /></a>
+							</article>
+							<article class="from-right">
+								<a href={{ url_for('static', filename='images/fulls/04.jpg')}} class="image fit"><img src={{ url_for('static', filename='images/thumbs/04.jpg')}} title="Summer beach" alt="" /></a>
+							</article>
+							<article class="from-left">
+								<a href={{ url_for('static', filename='images/fulls/05.jpg')}} class="image fit"><img src={{ url_for('static', filename='images/thumbs/05.jpg')}} title="Campfire night" alt="" /></a>
+							</article>
+							<article class="from-right">
+								<a href={{ url_for('static', filename='images/fulls/06.jpg')}} class="image fit"><img src={{ url_for('static', filename='images/thumbs/06.jpg')}} title="NY train station" alt="" /></a>
+							</article>
+						</div>
+
+				</div>
+			</section>
+
+		<!-- Contact -->
+			<section id="contact" class="main style3 secondary">
+				<div class="content">
+					<header>
+						<h2>Say Hello.</h2>
+						<p>Give some comments, or even give critics about how this project could be done better. My email address is <strong> kennethchew_11@hotmail.com </strong>.
+							 <br></br>
+						Learn more here on my <a href="http://kennethchewx.github.io"> blog post </a> on how this was done.
+						</p>
+					</header>
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+
+				<!-- Icons -->
+					<ul class="icons">
+						<li><a href="https://github.com/KennethChewx/Capstone" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="https://www.linkedin.com/in/kenneth-chew/" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+					</ul>
+
+				<!-- Menu -->
+					<ul class="menu">
+						<li>&copy; Kenneth Chew </li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+					</ul>
+
+			</footer>
+{{ url_for('static', filename='js/browser.min.js')}}
+		<!-- Scripts -->
+			<script src={{ url_for('static', filename='js/jquery.min.js')}}></script>
+			<script src={{ url_for('static', filename='js/jquery.poptrox.min.js')}}></script>
+			<script src={{ url_for('static', filename='js/jquery.scrolly.min.js')}}></script>
+			<script src={{ url_for('static', filename='js/jquery.scrollex.min.js')}}></script>
+			<script src="static/js/browser.min.js"></script>
+			<script src="static/js/breakpoints.min.js"></script>
+			<script src="static/js/util.js"></script>
+			<script src="static/js/main.js"></script>
+
+	</body>
+</html>

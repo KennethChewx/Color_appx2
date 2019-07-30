@@ -1,0 +1,12 @@
+Flask==1.0.3
+matplotlib==3.1.0
+numpy==1.16.4
+path.py==12.0.1
+pathlib2==2.3.3
+tensorflow==1.14.0
+tensorflow-estimator==1.14.0
+tf-estimator-nightly==1.14.0.dev2019060501
+Werkzeug==0.15.4
+gunicorn
+MarkupSafe
+Jinja2
