@@ -150,7 +150,7 @@ generator = Generator()
 discriminator = Discriminator()
 
 #load checkpoint weights
-checkpoint_dir = 'static/model_weights/'
+checkpoint_dir = 'static/model_weights'
 checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
 checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  discriminator_optimizer=discriminator_optimizer,
