@@ -11,7 +11,7 @@ from werkzeug import secure_filename
 MYDIR = os.path.dirname(__file__)
 UPLOAD_FOLDER = 'static/uploads/'
 COLOR = 'static/colored/'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = set(['png'])
 
 #----- CONFIG -----#
 app = Flask(__name__)
@@ -157,7 +157,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 #Restore weights
-checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)).run_restore_ops()
+checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)).initialize_or_restore()
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -206,10 +206,11 @@ def upload_file():
             plt.axis('off')
             plt.savefig('static/colored/'+ str(filename), bbox_inches = 'tight', pad_inches = 0)
             return flask.render_template('results.html', url ='static/colored/'+str(filename), url2 = 'static/uploads/'+str(filename))
-
+        else:
+            flash('Sorry, Heroku only supports PNG photos')
+            return redirect(request.url)
     return flask.render_template('index.html')
 
 #----- MAIN SENTINEL -----#
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(port=port)
+    app.run(debug=False)
