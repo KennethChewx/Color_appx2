@@ -7,7 +7,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from flask import Flask, request, redirect, url_for, jsonify, send_file
 from werkzeug import secure_filename
-#tf.enable_eager_execution()
+tf.enable_eager_execution()
 
 MYDIR = os.path.dirname(__file__)
 UPLOAD_FOLDER = 'static/uploads/'
@@ -178,11 +178,11 @@ def train_step(input_image, target):
         gen_loss = generator_loss(disc_generated_output, gen_output, target)
         disc_loss = discriminator_loss(disc_real_output, disc_generated_output)
         
-    #generator_gradients = gen_tape.gradient(gen_loss, generator.trainable_variables)
-    #discriminator_gradients = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
+    generator_gradients = gen_tape.gradient(gen_loss, generator.trainable_variables)
+    discriminator_gradients = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
 
-    #generator_optimizer.apply_gradients(zip(generator_gradients, generator.trainable_variables))
-    #discriminator_optimizer.apply_gradients(zip(discriminator_gradients,discriminator.trainable_variables))
+    generator_optimizer.apply_gradients(zip(generator_gradients, generator.trainable_variables))
+    discriminator_optimizer.apply_gradients(zip(discriminator_gradients,discriminator.trainable_variables))
         
 
 # Adam optimizers
@@ -211,9 +211,9 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 #Delayed restoration for layers to create variables  
-train_step(input_image, target_image)
+#train_step(input_image, target_image)
 
-status.assert_consumed()
+#status.assert_consumed()
 
 def allowed_file(filename):
     return '.' in filename and \
