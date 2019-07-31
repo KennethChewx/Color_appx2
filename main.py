@@ -139,6 +139,50 @@ def Discriminator():
 
     return tf.keras.Model(inputs=[inp, tar], outputs=last)
 
+# Define lambda from article
+lamb = 100
+loss_object = tf.keras.losses.BinaryCrossentropy(from_logits=True)
+
+def discriminator_loss(disc_real_output, disc_generated_output):
+    real_loss = loss_object(tf.ones_like(disc_real_output), disc_real_output)
+
+    generated_loss = loss_object(tf.zeros_like(disc_generated_output), disc_generated_output)
+
+    total_disc_loss = real_loss + generated_loss
+
+    return total_disc_loss
+
+def generator_loss(disc_generated_output, gen_output, target):
+    gan_loss = loss_object(tf.ones_like(disc_generated_output), disc_generated_output)
+
+    # mean absolute error
+    l1_loss = tf.reduce_mean(tf.abs(target - gen_output))
+    
+    #Include SSIM loss
+    
+    ssim_loss = (1 - tf.math.reduce_mean(tf.image.ssim_multiscale(gen_output, target, 1)))/2
+    
+    #removed ssim_loss
+    total_gen_loss = gan_loss + ssim_loss + (lamb * l1_loss)
+
+    return total_gen_loss
+
+def train_step(input_image, target):
+    with tf.GradientTape() as gen_tape, tf.GradientTape() as disc_tape:
+        gen_output = generator(input_image, training=True)
+
+        disc_real_output = discriminator([input_image, target], training=True)
+        disc_generated_output = discriminator([input_image, gen_output], training=True)
+
+        gen_loss = generator_loss(disc_generated_output, gen_output, target)
+        disc_loss = discriminator_loss(disc_real_output, disc_generated_output)
+        
+    generator_gradients = gen_tape.gradient(gen_loss, generator.trainable_variables)
+    discriminator_gradients = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
+
+    generator_optimizer.apply_gradients(zip(generator_gradients, generator.trainable_variables))
+    discriminator_optimizer.apply_gradients(zip(discriminator_gradients,discriminator.trainable_variables))
+
 # Adam optimizers
 generator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
 discriminator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
@@ -148,6 +192,10 @@ discriminator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
 #Create instance of generator and discriminator    
 generator = Generator()
 discriminator = Discriminator()
+
+input_image = np.random.uniform(0, 255, (1, 256, 256, 3))
+target_image = np.random.uniform(0, 255, (1, 256, 256, 3))
+
 
 #load checkpoint weights
 checkpoint_dir = 'static/model_weights'
@@ -160,8 +208,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 #Delayed restoration for layers to create variables  
-Generator(np.random.uniform(0, 255, (1, 256, 256, 3)))
-status.assert_consumed()
+train_step(input_image, target_image)
 
 def allowed_file(filename):
     return '.' in filename and \
