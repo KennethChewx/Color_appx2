@@ -211,7 +211,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 #Delayed restoration for layers to create variables  
-train_step(input_image, target_image)
+#train_step(input_image, target_image)
 
 status.assert_consumed()
 
