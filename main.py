@@ -7,7 +7,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from flask import Flask, request, redirect, url_for, jsonify, send_file
 from werkzeug import secure_filename
-tf.enable_eager_execution()
+tf.compat.v1.enable_eager_execution()
 
 MYDIR = os.path.dirname(__file__)
 UPLOAD_FOLDER = 'static/uploads/'
@@ -186,8 +186,8 @@ def train_step(input_image, target):
         
 
 # Adam optimizers
-generator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
-discriminator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
+generator_optimizer = tf.compat.v1.train.AdamOptimizer(2e-4, beta1=0.5)
+discriminator_optimizer = tf.compat.v1.train.AdamOptimizer(2e-4, beta1=0.5)
 #generator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
 #discriminator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
 
@@ -211,9 +211,9 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 #Delayed restoration for layers to create variables  
-#train_step(input_image, target_image)
+train_step(input_image, target_image)
 
-#status.assert_consumed()
+status.assert_consumed()
 
 def allowed_file(filename):
     return '.' in filename and \
