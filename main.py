@@ -193,8 +193,10 @@ discriminator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
 generator = Generator()
 discriminator = Discriminator()
 
-input_image = np.random.uniform(0, 255, (1, 256, 256, 3))
-target_image = np.random.uniform(0, 255, (1, 256, 256, 3))
+input_image = np.random.uniform(-1, 1, (1, 256, 256, 3))
+input_image = tf.cast(input_image, tf.float32)
+target_image = np.random.uniform(-1, 1, (1, 256, 256, 3))
+target_image = tf.cast(target_image, tf.float32)
 
 
 #load checkpoint weights
