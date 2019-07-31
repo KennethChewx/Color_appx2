@@ -7,7 +7,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 from flask import Flask, request, redirect, url_for, jsonify, send_file
 from werkzeug import secure_filename
-tf.enable_eager_execution()
+#tf.enable_eager_execution()
 
 MYDIR = os.path.dirname(__file__)
 UPLOAD_FOLDER = 'static/uploads/'
@@ -211,7 +211,7 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
 status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 #Delayed restoration for layers to create variables  
-#train_step(input_image, target_image)
+train_step(input_image, target_image)
 
 status.assert_consumed()
 
