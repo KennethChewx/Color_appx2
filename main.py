@@ -1,6 +1,7 @@
 # import the necessary packages
 import os
 import flask
+import numpy as np
 import random
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -156,17 +157,10 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 #Restore weights
-checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)).assert_consumed().run_restore_ops().initialize_or_restore()
+checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)).run_restore_ops().initialize_or_restore()
 
-# Adam optimizers
-generator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
-discriminator_optimizer = tf.train.AdamOptimizer(2e-4, beta1=0.5)
-#generator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
-#discriminator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
-
-#Create instance of generator and discriminator    
-generator = Generator()
-discriminator = Discriminator()
+#Delayed restoration for layers to create variables  
+Generator(np.random.uniform(0, 255, (1, 256, 256, 3)))
 
 def allowed_file(filename):
     return '.' in filename and \
