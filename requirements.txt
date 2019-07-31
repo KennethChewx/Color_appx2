@@ -6,4 +6,3 @@ Werkzeug==0.15.4
 gunicorn
 MarkupSafe
 Jinja2
-tensorflow-gpu==2.0.0b1
