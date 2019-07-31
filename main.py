@@ -157,10 +157,11 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 #Restore weights
-checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir)).run_restore_ops().initialize_or_restore()
+status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 #Delayed restoration for layers to create variables  
 Generator(np.random.uniform(0, 255, (1, 256, 256, 3)))
+status.assert_consumed()
 
 def allowed_file(filename):
     return '.' in filename and \
