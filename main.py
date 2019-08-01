@@ -181,8 +181,8 @@ def train_step(input_image, target):
     generator_gradients = gen_tape.gradient(gen_loss, generator.trainable_variables)
     discriminator_gradients = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
 
-    #generator_optimizer.apply_gradients(zip(generator_gradients, generator.trainable_variables))
-    #discriminator_optimizer.apply_gradients(zip(discriminator_gradients,discriminator.trainable_variables))
+    generator_optimizer.apply_gradients(zip(generator_gradients, generator.trainable_variables))
+    discriminator_optimizer.apply_gradients(zip(discriminator_gradients,discriminator.trainable_variables))
         
 
 # Adam optimizers
