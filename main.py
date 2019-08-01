@@ -206,12 +206,10 @@ checkpoint = tf.train.Checkpoint(generator_optimizer=generator_optimizer,
                                  generator=generator,
                                  discriminator=discriminator)
 #Restore weights
-status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
+checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
 #Delayed restoration for layers to create variables  
-#train_step(input_image, target_image)
-
-#status.assert_consumed()
+train_step(input_image, target_image)
 
 def allowed_file(filename):
     return '.' in filename and \
