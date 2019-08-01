@@ -195,10 +195,10 @@ discriminator_optimizer = tf.compat.v1.train.AdamOptimizer(2e-4, beta1=0.5)
 generator = Generator()
 discriminator = Discriminator()
 
-input_image = np.random.uniform(-1, 1, (1, 256, 256, 3))
-input_image = tf.cast(input_image, tf.float32)
-target_image = np.random.uniform(-1, 1, (1, 256, 256, 3))
-target_image = tf.cast(target_image, tf.float32)
+#input_image = np.random.uniform(-1, 1, (1, 256, 256, 3))
+#input_image = tf.cast(input_image, tf.float32)
+#target_image = np.random.uniform(-1, 1, (1, 256, 256, 3))
+#target_image = tf.cast(target_image, tf.float32)
 
 
 #load checkpoint weights
@@ -213,7 +213,7 @@ status = checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 #Delayed restoration for layers to create variables  
 train_step(input_image, target_image)
 
-status.assert_consumed()
+#status.assert_consumed()
 
 def allowed_file(filename):
     return '.' in filename and \
