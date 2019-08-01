@@ -181,15 +181,13 @@ def train_step(input_image, target):
     generator_gradients = gen_tape.gradient(gen_loss, generator.trainable_variables)
     discriminator_gradients = disc_tape.gradient(disc_loss, discriminator.trainable_variables)
 
-    generator_optimizer.apply_gradients(zip(generator_gradients, generator.trainable_variables))
-    discriminator_optimizer.apply_gradients(zip(discriminator_gradients,discriminator.trainable_variables))
+    #generator_optimizer.apply_gradients(zip(generator_gradients, generator.trainable_variables))
+    #discriminator_optimizer.apply_gradients(zip(discriminator_gradients,discriminator.trainable_variables))
         
 
 # Adam optimizers
 generator_optimizer = tf.compat.v1.train.AdamOptimizer(2e-4, beta1=0.5)
 discriminator_optimizer = tf.compat.v1.train.AdamOptimizer(2e-4, beta1=0.5)
-#generator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
-#discriminator_optimizer = tf.optimizers.Adam(2e-4, beta_1=0.5)
 
 #Create instance of generator and discriminator    
 generator = Generator()
